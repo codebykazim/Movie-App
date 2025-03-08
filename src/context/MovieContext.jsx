@@ -4,22 +4,19 @@ const MovieContext = createContext();
 export const useMovieContext = () => useContext(MovieContext);
 
 export const MovieProvider = ({ children }) => {
-  const [favorites, setFavorites] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [favorites, setFavorites] = useState(() => {
+    const savedFavs = localStorage.getItem("favorites");
+    return savedFavs ? JSON.parse(savedFavs) : [];
+  });
 
-  useEffect(() => {
-    const savedFavs = JSON.parse(localStorage.getItem("favorites")) || [];
-    setFavorites(savedFavs);
-  }, []);
+  const [selectedMovie, setSelectedMovie] = useState(() => {
+    const savedMovie = localStorage.getItem("selectedMovie");
+    return savedMovie ? JSON.parse(savedMovie) : null;
+  });
 
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
-
-  useEffect(() => {
-    const savedMovie = JSON.parse(localStorage.getItem("selectedMovie"));
-    setSelectedMovie(savedMovie || null);
-  }, []);
 
   useEffect(() => {
     if (selectedMovie) {
@@ -30,14 +27,20 @@ export const MovieProvider = ({ children }) => {
   const addToFav = (movie) => {
     setFavorites((prev) => {
       if (!prev.some((m) => m.id === movie.id)) {
-        return [...prev, movie];
+        const updatedFavorites = [...prev, movie];
+        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+        return updatedFavorites;
       }
       return prev;
     });
   };
 
   const removeFromFav = (movieId) => {
-    setFavorites((prev) => prev.filter((movie) => movie.id !== movieId));
+    setFavorites((prev) => {
+      const updatedFavorites = prev.filter((movie) => movie.id !== movieId);
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      return updatedFavorites;
+    });
   };
 
   const isFav = (movieId) => favorites.some((movie) => movie.id === movieId);
@@ -48,8 +51,19 @@ export const MovieProvider = ({ children }) => {
   };
 
   return (
-    <MovieContext.Provider value={{ favorites, addToFav, removeFromFav, isFav, selectMovie, selectedMovie }}>
+    <MovieContext.Provider
+      value={{
+        favorites,
+        addToFav,
+        removeFromFav,
+        isFav,
+        selectedMovie,
+        selectMovie,
+      }}
+    >
       {children}
     </MovieContext.Provider>
   );
 };
+
+export default MovieProvider;

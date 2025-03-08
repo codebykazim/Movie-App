@@ -78,7 +78,9 @@ const MovieDetails = () => {
 
           {/* Details */}
           <div className="md:w-2/3 md:pl-12 mt-8 md:mt-0">
-            <h1 className="text-3xl sm:text-5xl font-bold mb-4">{movieDetails.title}</h1>
+            <h1 className="text-3xl sm:text-5xl font-bold mb-4">
+              {movieDetails.title}
+            </h1>
             <p className="text-lg sm:text-xl text-gray-300 italic mb-6">
               {movieDetails.tagline}
             </p>
@@ -86,12 +88,18 @@ const MovieDetails = () => {
             {/* Metadata */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               <div>
-                <span className="text-gray-400 font-semibold">Release Date:</span>
-                <span className="text-white ml-2">{movieDetails.release_date}</span>
+                <span className="text-gray-400 font-semibold">
+                  Release Date:
+                </span>
+                <span className="text-white ml-2">
+                  {movieDetails.release_date}
+                </span>
               </div>
               <div>
                 <span className="text-gray-400 font-semibold">Runtime:</span>
-                <span className="text-white ml-2">{movieDetails.runtime} minutes</span>
+                <span className="text-white ml-2">
+                  {movieDetails.runtime} minutes
+                </span>
               </div>
               <div>
                 <span className="text-gray-400 font-semibold">Genres:</span>
@@ -102,7 +110,8 @@ const MovieDetails = () => {
               <div>
                 <span className="text-gray-400 font-semibold">Rating:</span>
                 <span className="text-white ml-2">
-                  {movieDetails.vote_average} / 10 ({movieDetails.vote_count} votes)
+                  {movieDetails.vote_average} / 10 ({movieDetails.vote_count}{" "}
+                  votes)
                 </span>
               </div>
             </div>

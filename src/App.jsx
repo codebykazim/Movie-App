@@ -20,7 +20,13 @@ function App() {
       <div className="min-h-screen bg-gray-900">
         <Navbar />
         <main className="container mx-auto px-4 py-8">
-          <Suspense fallback={<div><Loader className="animate-spin text-white" size={32} /></div>}>
+          <Suspense
+            fallback={
+              <div className="flex justify-center items-center min-h-screen w-full">
+                <Loader className="animate-spin text-white" size={40} />
+              </div>
+            }
+          >
             <motion.div
               key={location.pathname}
               initial={{ opacity: 0, y: 20 }}

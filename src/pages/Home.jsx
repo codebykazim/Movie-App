@@ -72,16 +72,19 @@ function Home() {
               </button>
             </div>
           </form>
-          {loading ? (<div className="flex justify-center items-center">
-    <Loader className="animate-spin text-gray-600" size={32} />
-  </div>) : (
+          {loading ? (
+  <div className="flex justify-center items-center min-h-screen w-full">
+    <Loader className="animate-spin text-purple-500" size={40} />
+  </div>
+) : (
+  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    {movies.map(movie => (
+      <MovieCard movie={movie} key={movie.id} />
+    ))}
+  </div>
+)}
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {movies.map(movie => (
-              <MovieCard movie={movie} key={movie.id} />
-            ))}
-          </div>
-          )}
+
         </div>
 
       )

@@ -10,8 +10,13 @@ const ProtectedRoute = ({ children }) => {
   const [showLoginPopup, setShowLoginPopup] = useState(false);
 
   if (!isLoaded) {
-    return <div className="text-center text-white py-10"><Loader/></div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-900">
+        <Loader className="animate-spin text-purple-500" size={40} />
+      </div>
+    );
   }
+
 
   if (!isSignedIn) {
     return (

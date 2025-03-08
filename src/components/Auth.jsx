@@ -17,20 +17,26 @@ function Auth({ isMobile }) {
   }, [isSignedIn, navigate]);
 
   return (
-    <div className={`${isMobile ? 'w-full' : ''}`}>
+    <div className={`${isMobile ? "w-full" : ""}`}>
       <SignedOut>
         <button
           className="w-full bg-gradient-to-r from-purple-500 to-indigo-600 px-6 py-2 rounded-xl font-semibold shadow-md hover:scale-105 transition"
-          onClick={() => window.Clerk.openSignIn({
-            redirectUrl: window.location.href,
-          })}
+          onClick={() =>
+            window.Clerk.openSignIn({
+              redirectUrl: window.location.href,
+            })
+          }
         >
           Login
         </button>
       </SignedOut>
 
       <SignedIn>
-        <div className={`flex items-center ${isMobile ? 'flex-col space-y-4' : 'space-x-4'}`}>
+        <div
+          className={`flex items-center ${
+            isMobile ? "flex-col space-y-4" : "space-x-4"
+          }`}
+        >
           <UserButton afterSignOutUrl="/" />
           <button
             className="bg-red-600 px-6 py-2 rounded-xl font-semibold shadow-md hover:scale-105 transition"
